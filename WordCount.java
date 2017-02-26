@@ -19,9 +19,9 @@ public class WordCount {
     private final static IntWritable one = new IntWritable(1);
     private Text word = new Text();
 
-    public void map(Object key, Text value, Context context
-                    ) throws IOException, InterruptedException {
-      StringTokenizer itr = new StringTokenizer(value.toString());
+    public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+      String cleanLine = value.toString().toLowerCase().replaceAll("[_|$#<>\\^=\\[\\]\\*/\\\\,;,.\\-:()?!\"']", " ");
+      StringTokenizer itr = new StringTokenizer(cleanLine);
       while (itr.hasMoreTokens()) {
         word.set(itr.nextToken());
         context.write(word, one);
@@ -48,7 +48,8 @@ public class WordCount {
   public static void main(String[] args) throws Exception {
     Configuration conf = new Configuration();
     Job job = Job.getInstance(conf, "word count");
-    job.setJarByClass(WordCount.class);
+    //job.setJarByClass(WordCount.class);
+    job.setJar("wc.jar");
     job.setMapperClass(TokenizerMapper.class);
     job.setCombinerClass(IntSumReducer.class);
     job.setReducerClass(IntSumReducer.class);
