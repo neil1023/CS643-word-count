@@ -223,7 +223,7 @@ HadoopSlave2
 HadoopSlave3
 ~~~
 
-Note: Again, these are placeholders and should be modified by users.
+Note: Again, these hostnames are placeholders and should be modified by users.
 
 These are all the steps I took for creating the AMI. 
 After creating the nodes in my cluster using this AMI, I customized those nodes with more settings specifically for the Master and specifically for the Slaves. 
